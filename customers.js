@@ -5,7 +5,7 @@ async function main() {
     console.log("MongoDB connected");
 
     // await addOrder();
-     await addCustomer();
+     await findCust();
 
     await mongoose.connection.close();
 };
@@ -31,20 +31,20 @@ const Customer=mongoose.model("Customer",coustomerSchema);
 //     {item:"Royal And Field Himalaya",price:2_55_999}])
 //     console.log(res)
 // }
-const addCustomer= async ()=>{
-    let customer1= new Customer(
-        {name:"Viany"})
-    let order1=await Order.findOne({item:"Samsung 4K TV True RGB"});
-    let order2=await Order.findOne({item:"Iphone 19 Pro"});
-    let order3=await Order.findOne({item:"Royal And Field Himalaya"});
-    customer1.orders.push(order1);
-    customer1.orders.push(order2);
-    customer1.orders.push(order3);
-    let res=await customer1.save();
-    console.log(res);
-
-
-
-
+// const addCustomer= async ()=>{
+//     let customer1= new Customer(
+//         {name:"Viany"})
+//     let order1=await Order.findOne({item:"Samsung 4K TV True RGB"});
+//     let order2=await Order.findOne({item:"Iphone 19 Pro"});
+//     let order3=await Order.findOne({item:"Royal And Field Himalaya"});
+//     customer1.orders.push(order1);
+//     customer1.orders.push(order2);
+//     customer1.orders.push(order3);
+//     let res=await customer1.save();
+//     console.log(res);
+// }
+const findCust=async()=>{
+    let res= await Customer.find({}).populate("orders");
+    console.log(res)
 }
 main().catch(err => console.log(err));
